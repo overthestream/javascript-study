@@ -1,0 +1,67 @@
+# 함수 정의하기 
+   > 함수 선언문 : function name(argument){ contents }
+      hoisting 가능 
+   > 함수 리터럴 : var name = function(argument){ contents }
+   > Function 생성자 : var name = new Function("argument", "contents)
+   > 화살표 함수 표현식 : var name = argument => contents
+
+# Nested Function | Inner Function (중첩 함수, 내부 함수, 지역 함수)
+   외부 함수의 최상위 레벨에 중첩 함수를 작성 가능 = if, while 등의 블록 밖에만 작성 가능
+   static 함수 같은 것인듯..?
+   외부 함수의 인수 사용 가능 (사실 당연한 것, 이것도 블록이니까~)
+
+# 함수 호출
+   > 함수 호출 : name(argument)
+   > 메소드 호출 : Object.method(argument)
+   > 생성자 호출 : var instance = new Object(argument)
+   > call, apply를 사용한 간접 호출 
+
+# 즉시 실행 함수
+   (function (argument) {contents})(argument)
+
+# 함수의 인수 
+   인자를 적게 전달 시 함수 내부에서 원래 인자는 undefined가 됨 
+   + 논리 연산자의 특성 활용 
+      -> 인수가 적어도 되는 함수를 만들 수 있다 ex) b = b || 1
+   함수의 인수 값들은 arguments 라는 지역 변수 객체에 저장되어 있음
+      배열처럼 인덱스를 통해 접근 가능 (배열 길이 = 함수 호출 시 준 인자 수) 
+      arguments.callee = 현재 호출중인 함수 이름 (익명 함수도 재귀호출이 가능하다)
+   
+# JS는 어떻게 돌아가는가?
+   실행가능한 코드(Executable Code)를 만나면 그 코드를 평가(Evaluation)하여 실행 문맥(Execution Context)로 만든다.
+      Executable Code : 전역 코드, 함수 코드, eval 코드
+         > 전역 코드 : 전역 객체 Window 아래에 정의된 함수 
+         > 함수 코드 : just 함수
+         > eval 코드 : 문자열을 코드화 하는 eval 함수 
+      Execution Context : Executable Code가 실제로 실행되고 관리되는 영역, 실행에 필요한 정보를 컴포넌트 여러 개가 나누어 관리
+         > Lexical Environment Component 
+         > Variable Environment Component
+            Lexical, Variable : Lexical Environment 타입의 컴포넌트, 내부 값이 with문 사용 시를 제외하고 같음
+            # Lexical Environment Component
+               JS 엔진이 JS 코드를 실행하기 위해 자원을 모아둔 곳 -> 함수 또는 블록의 유효 범위 안에 있는 식별자와 그 결과가 저장됨
+               JS 엔진은 JS 코드의 범위 안에 있는 식별자와 그 값을 키와 값의 쌍으로 바인드하여 이곳에 기록
+               > Environment Record 
+                  유효 범위 안에 포함된 식별자를 기록하고 실행
+                  렉시컬 환경 안의 식별자와 그 식별자의 값의 묶음이 실제로 저장되는 영역
+                  > Declarative Environment Record : 실제 함수와 변수, catch 문의 식별자와 실행 결과 
+                  > Object Environment Record : 실행 문맥 외부에 별도로 저장된 객체의 참조에서 데이터를 읽거나 씀
+               > Outer Lexical Environment Reference
+                  함수를 둘러싸고 있는 코드가 속한 렉시컬 환경 컴포넌트의 참조가 저장 : 바깥 코드에 정의된 변수를 읽을 때 이것을 따라 거슬러 올라감
+         > This Binding Component
+            함수를 호출한 객체의 참조가 저장됨 (객체의 this!!)
+         
+   # 전역 환경
+      JS 인터프리터는 실행 시 렉시컬 환경 타입의 Global Environment를 생성
+      전역 객체를 생성한 다음 Global Environment의 Object Environment Record에 전역 객체의 참조 대입 : 제일 바깥의 this === window 객체
+      :
+         GlobalEnvironment = {
+            ObjectEnvironmentRecord: {
+               bindObject: window
+            },
+            OuterLexicalEnvironmentReference: null
+         }
+         ExecutionContext = {
+            LexicalEnvironment: GlobalEnvironment,
+            ThisBinding: window
+         }
+      프로그램의평가와전역변수
