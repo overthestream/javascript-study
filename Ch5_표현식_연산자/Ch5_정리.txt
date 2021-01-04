@@ -10,4 +10,4 @@
    -> 자바 스크립트에서는 숫자->Number, 논리->Boolean 등 원시 값 사용 시 객체로 자동 변환하여 연산 
    
 # 논리 연산자 (&&, ||)
-   true, false 가 아닌, 마지막으로 평가한 피연산자를 반환함 ex) a && b 에서 a가 true이면 b, a가 false이면 a .
+   true, false 가 아닌, 마지막으로 평가한 피연산자를 반환함 ex) a && b 에서 a가 true이면 b, a가 false이면 a.

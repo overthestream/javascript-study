@@ -3,6 +3,7 @@
    HTML,CSS + JS : <head>의 자식 요소로 <script>.
 
    -> src를 이용 ex) <script src="./factorial.js"> </script>
+      ex -> ./factorial.HTML
 
 # node.js 로 js 돌리기
    terminal에서 node 명령어 이용. 
