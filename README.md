@@ -1,5 +1,7 @@
-## javascript-study
+# javascript-study
+
         personal repository for studying JS
 
-# REFERENCE
+## REFERENCE
+
         모던 자바스크립트 입문
